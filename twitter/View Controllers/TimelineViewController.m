@@ -8,6 +8,10 @@
 
 #import "TimelineViewController.h"
 #import "APIManager.h"
+#import "UIImageView+AFNetworking.h"
+#import "TweetCell.h"
+#import "Tweet.h"
+#import "User.h"
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong,nonatomic) NSArray *tweets;
@@ -30,10 +34,12 @@
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (NSDictionary *tweet in tweets) {
-                NSString *text = tweet[@"text"];
+            for (Tweet *tweet in tweets) {
+                NSString *text = tweet.text;
                 NSLog(@"%@", text);
             }
+            self.tweets = tweets;
+            [self.tweetTableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -55,20 +61,28 @@
 (NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     
-    NSDictionary *tweet = self.tweets[indexPath.row];
+    Tweet *tweet = self.tweets[indexPath.row];
+    User *user = tweet.user;
     
-    cell.tweetLabel.text = tweet[@"text"];
-    cell.userLabel.text = movie[@"user"];
-    NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
-    NSString *posterURLString = movie[@"poster_path"];
-    NSString *fullURLString = [baseURLString stringByAppendingString:posterURLString];
+    cell.tweetLabel.text = tweet.text;
+    //NSLog(@"tweet text: %@", tweet.text);
+    cell.userLabel.text = tweet.user.name;
+    //NSLog(@"tweet user: %@", tweet.user.name);
+    cell.handleLabel.text = user.screenName;
+    cell.createdAtLabel.text = tweet.createdAtString;
     
-    NSURL *posterURL = [NSURL URLWithString:fullURLString];
-    cell.posterView.image = nil;
-    [cell.posterView setImageWithURL:posterURL];
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    NSString *profilePicString = tweet.user.profilePicURL;
+    NSURL *profilePicURL = [NSURL URLWithString:profilePicString];
+    cell.profileImageView.image = nil;
+    [cell.profileImageView setImageWithURL:profilePicURL];
+    
+    //self.tweetTableView.rowHeight = UITableViewAutomaticDimension;
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 200;
 }
 /*
 #pragma mark - Navigation
