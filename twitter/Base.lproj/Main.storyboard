@@ -129,13 +129,6 @@
                                                         <color key="titleColor" red="0.20307825360000001" green="0.30935951049999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5Z-NR-IOo">
-                                                    <rect key="frame" x="26" y="169" width="96" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button" image="reply-icon">
-                                                        <color key="titleColor" red="0.20307825360000001" green="0.30935951049999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </state>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -143,7 +136,6 @@
                                             <outlet property="handleLabel" destination="qtn-7X-rEv" id="n20-OA-NCh"/>
                                             <outlet property="likesButton" destination="aiB-Xz-Jgv" id="CP0-vl-kOL"/>
                                             <outlet property="profileImageView" destination="XR8-gp-d7U" id="8Cz-46-xei"/>
-                                            <outlet property="repliesButton" destination="o5Z-NR-IOo" id="TPG-qI-aeb"/>
                                             <outlet property="retweetsButton" destination="jt1-OY-uHc" id="dB5-s6-AiB"/>
                                             <outlet property="tweetLabel" destination="kHa-lC-Tk5" id="gGE-AJ-3u1"/>
                                             <outlet property="userLabel" destination="Q8C-TF-bhP" id="KaV-0e-eRG"/>
@@ -269,7 +261,6 @@
         <image name="TwitterLogoBlue" width="200" height="200"/>
         <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon" width="30" height="30"/>
-        <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
     </resources>
 </document>

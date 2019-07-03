@@ -12,9 +12,10 @@
 #import "TweetCell.h"
 #import "Tweet.h"
 #import "User.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (strong,nonatomic) NSArray *tweets;
+@interface TimelineViewController () <ComposeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+@property (strong,nonatomic) NSMutableArray *tweets;
 @property (weak, nonatomic) IBOutlet UITableView *tweetTableView; // View controller has table view as subview
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tweetButton;
 @end
@@ -46,7 +47,7 @@
             }
             
             // View controller stores data passed into completion handler
-            self.tweets = tweets;
+            self.tweets = (NSMutableArray*) tweets;
             
             // Reload table view
             [self.tweetTableView reloadData];
@@ -89,10 +90,6 @@
     NSString *likes = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     [cell.likesButton setTitle:likes forState:UIControlStateNormal];
     
-    NSString *replies = [NSString stringWithFormat:@"%d", tweet.replyCount];
-    [cell.repliesButton setTitle:replies forState:UIControlStateNormal];
-    
-    
     NSString *profilePicString = tweet.user.profilePicURL;
     NSURL *profilePicURL = [NSURL URLWithString:profilePicString];
     cell.profileImageView.image = nil;
@@ -119,17 +116,25 @@
     
 }
 
+-(void)didTweet:(Tweet *)tweet {
+    [self.tweets addObject:tweet];
+    //do you need to fetch tweets again???????????
+    [self.tweetTableView reloadData];
+}
 
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 
 @end
