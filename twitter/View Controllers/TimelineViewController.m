@@ -25,6 +25,10 @@
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tweetTableView insertSubview:refreshControl atIndex:0];
+    
     [self fetchTweets];
     
 }
@@ -90,6 +94,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 200;
+}
+
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+    
+    //Refetch tweets
+    [self fetchTweets];
+    
+    //Maybe add reload but don't think so
+    
+    // Tell the refreshControl to stop spinning
+    [refreshControl endRefreshing];
+    
 }
 /*
 #pragma mark - Navigation
