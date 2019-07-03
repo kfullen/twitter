@@ -15,13 +15,14 @@
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong,nonatomic) NSArray *tweets;
-@property (weak, nonatomic) IBOutlet UITableView *tweetTableView;
+@property (weak, nonatomic) IBOutlet UITableView *tweetTableView; // View controller has table view as subview
 @end
 
 @implementation TimelineViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // View controller becomes data source and delegate of table view
     self.tweetTableView.dataSource = self;
     self.tweetTableView.delegate = self;
     
@@ -34,7 +35,7 @@
 }
 
 - (void) fetchTweets {
-    // Get timeline
+    // Get timeline, make an API request
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
@@ -42,7 +43,11 @@
                 NSString *text = tweet.text;
                 NSLog(@"%@", text);
             }
+            
+            // View controller stores data passed into completion handler
             self.tweets = tweets;
+            
+            // Reload table view
             [self.tweetTableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
@@ -56,11 +61,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+// Table view asks for number of rows
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:
 (NSInteger)section {
     return self.tweets.count;
 }
 
+//Table view asks for cells for row at
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:
 (NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
@@ -75,11 +82,14 @@
     cell.handleLabel.text = user.screenName;
     cell.createdAtLabel.text = tweet.createdAtString;
     
-    NSString *retweets = [NSString stringWithFormat:@"rts: %d", tweet.retweetCount];
+    NSString *retweets = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     [cell.retweetsButton setTitle:retweets forState:UIControlStateNormal];
     
-    NSString *likes = [NSString stringWithFormat:@"likes: %d", tweet.favoriteCount];
+    NSString *likes = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     [cell.likesButton setTitle:likes forState:UIControlStateNormal];
+    
+    NSString *replies = [NSString stringWithFormat:@"%d", tweet.replyCount];
+    [cell.repliesButton setTitle:replies forState:UIControlStateNormal];
     
     
     NSString *profilePicString = tweet.user.profilePicURL;
