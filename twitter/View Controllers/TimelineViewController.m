@@ -71,6 +71,13 @@
     cell.handleLabel.text = user.screenName;
     cell.createdAtLabel.text = tweet.createdAtString;
     
+    NSString *retweets = [NSString stringWithFormat:@"rts: %d", tweet.retweetCount];
+    [cell.retweetsButton setTitle:retweets forState:UIControlStateNormal];
+    
+    NSString *likes = [NSString stringWithFormat:@"likes: %d", tweet.favoriteCount];
+    [cell.likesButton setTitle:likes forState:UIControlStateNormal];
+    
+    
     NSString *profilePicString = tweet.user.profilePicURL;
     NSURL *profilePicURL = [NSURL URLWithString:profilePicString];
     cell.profileImageView.image = nil;
