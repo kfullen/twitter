@@ -76,6 +76,7 @@
     
     Tweet *tweet = self.tweets[indexPath.row];
     User *user = tweet.user;
+    cell.tweet = tweet;
     
     cell.tweetLabel.text = tweet.text;
     //NSLog(@"tweet text: %@", tweet.text);
@@ -89,6 +90,14 @@
     
     NSString *likes = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     [cell.likesButton setTitle:likes forState:UIControlStateNormal];
+    if(cell.tweet.favorited == YES) {
+        UIImage *redLikeButton = [UIImage imageNamed:@"favor-icon-red.png"];
+        [cell.likesButton setImage:redLikeButton forState:UIControlStateNormal];
+    }
+    else {
+        UIImage *grayLikeButton = [UIImage imageNamed:@"favor-icon.png"];
+        [cell.likesButton setImage:grayLikeButton forState:UIControlStateNormal];
+    }
     
     NSString *profilePicString = tweet.user.profilePicURL;
     NSURL *profilePicURL = [NSURL URLWithString:profilePicString];
