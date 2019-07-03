@@ -161,10 +161,14 @@
                                 <rect key="frame" x="275" y="8.5" width="84" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="edit-icon"/>
+                                <connections>
+                                    <segue destination="UB5-WW-Fhz" kind="presentation" id="9Fw-ak-kh5"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="tweetButton" destination="UiT-Z7-V0a" id="V68-Vy-LLa"/>
                         <outlet property="tweetTableView" destination="1MK-Yj-yVm" id="jmD-4u-tSH"/>
                     </connections>
                 </viewController>
@@ -198,25 +202,25 @@
                                 <rect key="frame" x="16" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelTweet:" destination="KTf-Ca-0Ir" eventType="touchUpInside" id="GaM-1N-lS3"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="cancelTweet:" destination="KTf-Ca-0Ir" id="J7d-gP-bdj"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="gMj-yT-YLI">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tNr-pK-eeI">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Tweet"/>
+                                <connections>
+                                    <action selector="postTweet:" destination="KTf-Ca-0Ir" eventType="touchUpInside" id="Gon-Fw-wGq"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="postTweet:" destination="KTf-Ca-0Ir" id="QsF-Ec-kIM"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="cancelButton" destination="jpn-c7-KqI" id="ASX-al-DVT"/>
-                        <outlet property="tweetButton" destination="gMj-yT-YLI" id="7E9-nS-Eeo"/>
+                        <outlet property="cancelButton" destination="IQz-hb-CbX" id="zdO-hS-Yr8"/>
+                        <outlet property="tweetButton" destination="tNr-pK-eeI" id="4zs-wc-7jF"/>
                         <outlet property="tweetTextView" destination="yiN-5R-Naz" id="A7Y-5N-74k"/>
                     </connections>
                 </viewController>

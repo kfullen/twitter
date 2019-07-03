@@ -16,6 +16,7 @@
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (strong,nonatomic) NSArray *tweets;
 @property (weak, nonatomic) IBOutlet UITableView *tweetTableView; // View controller has table view as subview
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tweetButton;
 @end
 
 @implementation TimelineViewController
@@ -117,6 +118,9 @@
     [refreshControl endRefreshing];
     
 }
+
+
+
 /*
 #pragma mark - Navigation
 

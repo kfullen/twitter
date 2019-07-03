@@ -10,8 +10,10 @@
 
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *tweetButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *tweetButton;
+
+
 
 @end
 
@@ -21,10 +23,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-- (IBAction)cancelTweet:(id)sender {
-}
 - (IBAction)postTweet:(id)sender {
 }
+- (IBAction)cancelTweet:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
 
 /*
 #pragma mark - Navigation
