@@ -13,6 +13,8 @@
 #import "Tweet.h"
 #import "User.h"
 #import "ComposeViewController.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (strong,nonatomic) NSMutableArray *tweets;
@@ -89,11 +91,11 @@
     [cell.retweetsButton setTitle:retweets forState:UIControlStateNormal];
     if(cell.tweet.retweeted == YES) {
         UIImage *greenRetweetButton = [UIImage imageNamed:@"retweet-icon-green.png"];
-        [cell.likesButton setImage:greenRetweetButton forState:UIControlStateNormal];
+        [cell.retweetsButton setImage:greenRetweetButton forState:UIControlStateNormal];
     }
     else {
         UIImage *grayRetweetButton = [UIImage imageNamed:@"retweet-icon.png"];
-        [cell.likesButton setImage:grayRetweetButton forState:UIControlStateNormal];
+        [cell.retweetsButton setImage:grayRetweetButton forState:UIControlStateNormal];
     }
     
     
@@ -140,6 +142,14 @@
     [self.tweetTableView reloadData];
 }
 
+- (IBAction)tapLogout:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    [[APIManager shared] logout];
+}
 
 
 #pragma mark - Navigation
