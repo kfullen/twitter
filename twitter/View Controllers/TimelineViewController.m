@@ -87,6 +87,15 @@
     
     NSString *retweets = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     [cell.retweetsButton setTitle:retweets forState:UIControlStateNormal];
+    if(cell.tweet.retweeted == YES) {
+        UIImage *greenRetweetButton = [UIImage imageNamed:@"retweet-icon-green.png"];
+        [cell.likesButton setImage:greenRetweetButton forState:UIControlStateNormal];
+    }
+    else {
+        UIImage *grayRetweetButton = [UIImage imageNamed:@"retweet-icon.png"];
+        [cell.likesButton setImage:grayRetweetButton forState:UIControlStateNormal];
+    }
+    
     
     NSString *likes = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     [cell.likesButton setTitle:likes forState:UIControlStateNormal];
