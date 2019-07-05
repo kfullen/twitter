@@ -84,7 +84,7 @@
     //NSLog(@"tweet text: %@", tweet.text);
     cell.userLabel.text = tweet.user.name;
     //NSLog(@"tweet user: %@", tweet.user.name);
-    cell.handleLabel.text = user.screenName;
+    cell.handleLabel.text = [NSString stringWithFormat:@"@%@", user.screenName];
     cell.createdAtLabel.text = tweet.createdAtString;
     
     NSString *retweets = [NSString stringWithFormat:@"%d", tweet.retweetCount];
@@ -119,11 +119,11 @@
     
     return cell;
 }
-
+/*
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 200;
 }
-
+*/
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     
     //Refetch tweets
