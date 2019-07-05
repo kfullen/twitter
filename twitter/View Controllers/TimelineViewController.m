@@ -15,6 +15,7 @@
 #import "ComposeViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "DateTools.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 @property (strong,nonatomic) NSMutableArray *tweets;
@@ -81,11 +82,12 @@
     cell.tweet = tweet;
     
     cell.tweetLabel.text = tweet.text;
-    //NSLog(@"tweet text: %@", tweet.text);
     cell.userLabel.text = tweet.user.name;
-    //NSLog(@"tweet user: %@", tweet.user.name);
     cell.handleLabel.text = [NSString stringWithFormat:@"@%@", user.screenName];
-    cell.createdAtLabel.text = tweet.createdAtString;
+    
+    //cell.createdAtLabel.text = tweet.createdAtString;
+    cell.createdAtLabel.text = tweet.ago;
+    
     
     NSString *retweets = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     [cell.retweetsButton setTitle:retweets forState:UIControlStateNormal];
