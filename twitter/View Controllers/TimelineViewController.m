@@ -43,13 +43,7 @@
 - (void) fetchTweets {
     // Get timeline, make an API request
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
-        if (tweets) {
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (Tweet *tweet in tweets) {
-                NSString *text = tweet.text;
-                NSLog(@"%@", text);
-            }
-            
+        if (tweets) {            
             // View controller stores data passed into completion handler
             self.tweets = (NSMutableArray*) tweets;
             
@@ -84,10 +78,8 @@
     
     cell.tweetLabel.text = tweet.text;
     cell.userLabel.text = tweet.user.name;
-    cell.handleLabel.text = [NSString stringWithFormat:@"@%@", user.screenName];
-    
-    //cell.createdAtLabel.text = tweet.createdAtString;
-    cell.createdAtLabel.text = tweet.ago;
+    cell.handleLabel.text = [NSString stringWithFormat:@"@%@", user.screenName];    
+    cell.createdAtLabel.text = tweet.ago; //now timestamp instead of created at date
     
     
     NSString *retweets = [NSString stringWithFormat:@"%d", tweet.retweetCount];
@@ -122,11 +114,7 @@
     
     return cell;
 }
-/*
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 200;
-}
-*/
+
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     
     //Refetch tweets
@@ -171,12 +159,9 @@
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tweetTableView indexPathForCell:tappedCell];
         Tweet *tweet = self.tweets[indexPath.row];
-        NSLog(@"tweeka tweeka: %@",tweet);
         detailsViewController.tweet = tweet;
        
     }
-        
-    // Pass the selected object to the new view controller.
 }
 
 

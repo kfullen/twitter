@@ -26,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.nameLabel.text = self.tweet.user.name;
-    self.handleLabel.text = self.tweet.user.screenName;
+    self.handleLabel.text = [NSString stringWithFormat: @"@%@", self.tweet.user.screenName];
     self.tweetLabel.text = self.tweet.text;
     self.timestampLabel.text = self.tweet.createdAtString;
     
